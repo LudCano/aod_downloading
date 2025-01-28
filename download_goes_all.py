@@ -47,7 +47,7 @@ today = dt.datetime.now()
 today = today.date().strftime('%Y-%m-%d') 
 print('TODAY IS' ,today)
 date0 = '2023-01-01'
-datef = '2023-01-10'
+datef = '2023-01-02'
 
 ######################################################
 #######   CONEXIÓN A AMAZON WEB SERVICES   ###########
@@ -205,23 +205,22 @@ if not os.path.exists(outdir):
 # Loop through list of ABI files on NODD
 # Open each file remotely, subset variables & save as a new .nc file
 
-
-# orig_files_paths = []
-# for file in tqdm(files_to_dwnld, desc='Downloading'):
-#     fname = file.split('/')[-1]
-#     subname = "sub_" + fname
-#     #print(file.split('/')[-1])  # Print the ABI file name
-#     fpath = (Path(abi_path) / file.split('/')[-1]).as_posix()
-#     orig_files_paths.append(fpath)
-#     trimmedpath = (Path(abi_path) / subname).as_posix()
-#     if not os.path.exists(trimmedpath):
-#         if not os.path.exists(fpath):
-#             fs.get(file, fpath)
-#     with xr.open_dataset(fpath, engine = 'h5netcdf') as ds:
-#         subset_abi_file(ds, upper_left_latitude, upper_left_longitude,lower_right_latitude, lower_right_longitude, fname)
-#     if os.path.exists(fpath) and flush_orig:
-#         os.remove(fpath)
-#     else:
-#         print(file.split('/')[-1], 'exists')
+orig_files_paths = []
+for file in tqdm(files_to_dwnld, desc='Downloading'):
+    fname = file.split('/')[-1]
+    subname = "sub_" + fname
+    #print(file.split('/')[-1])  # Print the ABI file name
+    fpath = (Path(abi_path) / file.split('/')[-1]).as_posix()
+    orig_files_paths.append(fpath)
+    trimmedpath = (Path(abi_path) / subname).as_posix()
+    if not os.path.exists(trimmedpath):
+        if not os.path.exists(fpath):
+            fs.get(file, fpath)
+    with xr.open_dataset(fpath, engine = 'h5netcdf') as ds:
+        subset_abi_file(ds, upper_left_latitude, upper_left_longitude,lower_right_latitude, lower_right_longitude, fname)
+    if os.path.exists(fpath) and flush_orig:
+        os.remove(fpath)
+    else:
+        print(file.split('/')[-1], 'exists')
 
 print('Done!')
