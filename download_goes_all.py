@@ -47,7 +47,7 @@ today = dt.datetime.now()
 today = today.date().strftime('%Y-%m-%d') 
 print('TODAY IS' ,today)
 date0 = '2023-01-02'
-datef = '2023-01-30'
+datef = '2023-01-10'
 
 ######################################################
 #######   CONEXIÓN A AMAZON WEB SERVICES   ###########
