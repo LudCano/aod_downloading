@@ -46,8 +46,8 @@ import h5netcdf
 today = dt.datetime.now()
 today = today.date().strftime('%Y-%m-%d') 
 print('TODAY IS' ,today)
-date0 = '2023-01-02'
-datef = '2023-01-10'
+date0 = '2023-01-11'
+datef = '2023-01-20'
 
 ######################################################
 #######   CONEXIÓN A AMAZON WEB SERVICES   ###########
