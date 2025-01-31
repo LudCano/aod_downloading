@@ -22,10 +22,21 @@ jobs:
       - name: Run download script
         run: |
           python download_goes_all.py  # Ejecuta tu script
+
+          # Git configurations to handle large data
+          git config --global http.postBuffer 524288000  # Set buffer to 500MB
+          git config --global http.maxRequestBuffer 100M
+
+          # Set user for commits
           git config user.name github-actions
           git config user.email github-actions@github.com
+
+          # Commit and push changes
           git add .
-          git commit -m "ActionsCommit"
-          git push          
+          git commit -m "ActionsCommit" || echo "No changes to commit"
+          
+          # Push in smaller batches
+          git push || (echo "Retrying push in smaller batches" && sleep 5 && git push)
+
       - name: List files
         run: ls -la
